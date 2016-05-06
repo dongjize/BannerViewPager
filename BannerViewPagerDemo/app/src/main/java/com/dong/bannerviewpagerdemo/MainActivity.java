@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, bannerItems.get(position).getTitle(), Toast.LENGTH_SHORT).show();
             }
         });
-        bannerViewPager.setDuration(1500);
         bannerViewPager.setAdapter(mAdapter);
     }
 }

@@ -55,14 +55,10 @@ public class BannerPagerAdapter extends PagerAdapter {
                 } else {
                     viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
                 }
-                handler.sendEmptyMessageDelayed(0, 4000);
+                handler.sendEmptyMessageDelayed(0, bannerViewPager.getInterval());
             }
         };
 
-    }
-
-    public void setPoints() {
-        pointGroup.setPointNumber();
     }
 
     public void setOnBannerViewClickListener(OnBannerViewClickListener listener) {

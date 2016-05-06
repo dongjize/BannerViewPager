@@ -33,12 +33,12 @@ public class PointGroup extends LinearLayout {
         init();
     }
 
-    public void init() {
+    private void init() {
         current = 0;
         setPointNumber();
     }
 
-    public void setPointNumber() {
+    private void setPointNumber() {
         if (pointNumber < 0) {
             return;
         }
@@ -47,7 +47,7 @@ public class PointGroup extends LinearLayout {
         for (int i = 0; i < pointNumber; i++) {
             ImageView point = new ImageView(mContext);
             point.setBackgroundResource(R.drawable.point_bg);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+            LayoutParams params = new LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             params.leftMargin = 4;
             params.rightMargin = 4;
@@ -60,16 +60,9 @@ public class PointGroup extends LinearLayout {
     }
 
     public void setCurrent(int index) {
-//        if (index >= pointNumber || index < 0) {
-//            return;
-//        }
-//        if (current >= pointViews.length || current < 0) {
-//            return;
-//        }
         for (int i = 0; i < pointNumber; i++) {
             pointViews[i].setEnabled(false);
         }
-//        current = index;
         pointViews[index].setEnabled(true);
 
     }

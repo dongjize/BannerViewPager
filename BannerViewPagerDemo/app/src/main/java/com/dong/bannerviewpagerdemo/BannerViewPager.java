@@ -1,6 +1,7 @@
 package com.dong.bannerviewpagerdemo;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -18,22 +19,46 @@ import java.lang.reflect.Field;
  * Author: dong
  * Date: 16/5/5
  */
-public class BannerViewPager extends RelativeLayout {
-    private ViewPager viewPager;
+public class BannerViewPager extends RelativeLayout {private ViewPager viewPager;
     private LinearLayout pointsLayout;
     private PointGroup mPointGroup;
     private OnBannerPageChangeListener mListener;
     private BannerViewPagerScroller mScroller;
 
+    private int interval = 4000;
+    private boolean isAllowAutoScroll = true;
+    private int scrollDuration = 2000;
 
     public BannerViewPager(Context context) {
-        super(context);
-        init(context);
+        this(context, null, 0);
     }
 
     public BannerViewPager(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
+    }
+
+    public BannerViewPager(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
         init(context);
+        TypedArray ta = context.getTheme().obtainStyledAttributes(attrs,
+                R.styleable.BannerViewPager, defStyleAttr, 0);
+        int n = ta.getIndexCount();
+        for (int i = 0; i < n; i++) {
+            int attr = ta.getIndex(i);
+            switch (ta.getIndex(i)) {
+                case R.styleable.BannerViewPager_interval:
+                    interval = ta.getInt(attr, interval);
+                    break;
+                case R.styleable.BannerViewPager_allowAutoScroll:
+                    isAllowAutoScroll = ta.getBoolean(attr, isAllowAutoScroll);
+                    break;
+                case R.styleable.BannerViewPager_scrollDuration:
+                    scrollDuration = ta.getInt(attr, scrollDuration);
+                    break;
+            }
+        }
+        ta.recycle();
+
     }
 
     private void init(Context context) {
@@ -41,20 +66,23 @@ public class BannerViewPager extends RelativeLayout {
         viewPager = (ViewPager) this.findViewById(R.id.viewpager);
         pointsLayout = (LinearLayout) this.findViewById(R.id.points_layout);
 
+        if (scrollDuration != 2000) {
+            setDuration(scrollDuration);
+        } else {
+            setDuration();
+        }
     }
 
     public ViewPager getViewPager() {
         return viewPager;
     }
 
-    public void setViewPager(ViewPager viewPager) {
-        this.viewPager = viewPager;
-    }
-
     public void setAdapter(BannerPagerAdapter adapter) {
         viewPager.setAdapter(adapter);
-        Handler handler = adapter.getHandler();
-        handler.sendEmptyMessageDelayed(0, 4000);
+        if (isAllowAutoScroll) {
+            Handler handler = adapter.getHandler();
+            handler.sendEmptyMessageDelayed(0, interval);
+        }
     }
 
     public void setPointGroup(PointGroup pointGroup) {
@@ -62,7 +90,7 @@ public class BannerViewPager extends RelativeLayout {
         pointsLayout.addView(mPointGroup);
     }
 
-    public void setDuration(int duration) {
+    public void setDuration() {
         try {
             Class<?> viewPager = ViewPager.class;
             Field scroller = viewPager.getDeclaredField("mScroller");
@@ -73,17 +101,24 @@ public class BannerViewPager extends RelativeLayout {
                 mScroller = new BannerViewPagerScroller(getContext());
             }
             scroller.set(this.viewPager, mScroller);
-            mScroller.setDuration(duration);
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
+    }
 
+    public void setDuration(int duration) {
+        setDuration();
+        mScroller.setDuration(duration);
+    }
+
+    public int getInterval() {
+        return interval;
     }
 
     class BannerViewPagerScroller extends Scroller {
-        private int mDuration = 2000;
+        private int mDuration = scrollDuration;
 
         public BannerViewPagerScroller(Context context) {
             super(context);
@@ -109,16 +144,15 @@ public class BannerViewPager extends RelativeLayout {
     }
 
     private class OnBannerPageChangeListener implements ViewPager.OnPageChangeListener {
-
         @Override
-        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        public void onPageSelected(int position) {
             if (mPointGroup != null) {
                 mPointGroup.setCurrent(position);
             }
         }
 
         @Override
-        public void onPageSelected(int position) {
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
         }
 

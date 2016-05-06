@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="interval" format="integer"></attr>
+    <attr name="allowAutoScroll" format="boolean"></attr>
+    <attr name="scrollDuration" format="integer"></attr>
+
+    <declare-styleable name="BannerViewPager">
+        <attr name="interval" />
+        <attr name="allowAutoScroll" />
+        <attr name="scrollDuration" />
+    </declare-styleable>
+
+</resources>
