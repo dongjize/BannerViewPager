@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
             viewList.add(imageView);
         }
 
-        mAdapter = new BannerPagerAdapter(this, bannerViewPager, viewList, bannerItems);
+        mAdapter = new BannerPagerAdapter(this, bannerViewPager, bannerItems, viewList);
         mAdapter.setOnBannerViewClickListener(new BannerPagerAdapter.OnBannerViewClickListener() {
             @Override
             public void onBannerClick(View itemView, int position) {

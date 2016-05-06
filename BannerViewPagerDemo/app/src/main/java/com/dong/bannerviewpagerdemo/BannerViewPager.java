@@ -14,7 +14,7 @@ import android.widget.Scroller;
 import java.lang.reflect.Field;
 
 /**
- * Description:
+ * Description: 轮播图
  * <p>
  * Author: dong
  * Date: 16/5/5
@@ -25,9 +25,9 @@ public class BannerViewPager extends RelativeLayout {private ViewPager viewPager
     private OnBannerPageChangeListener mListener;
     private BannerViewPagerScroller mScroller;
 
-    private int interval = 4000;
-    private boolean isAllowAutoScroll = true;
-    private int scrollDuration = 2000;
+    private int interval = 4000; //轮播间隔
+    private int scrollDuration = 2000; //切换时间
+    private boolean isAllowAutoScroll = true; //是否允许自动切换
 
     public BannerViewPager(Context context) {
         this(context, null, 0);

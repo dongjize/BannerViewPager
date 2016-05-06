@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 /**
- * Description:
+ * Description: 轮播图小圆点
  * <p>
  * Author: dong
  * Date: 16/5/4

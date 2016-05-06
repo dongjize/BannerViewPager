@@ -13,44 +13,86 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Description:
- * <p>
+ * <p/>
  * Author: dong
  * Date: 16/5/4
  */
 public class BannerPagerAdapter extends PagerAdapter {
-    private LayoutInflater mInflater;
     private List<ImageView> viewList;
+    private LayoutInflater mInflater;
     private OnBannerViewClickListener mListener;
     private List<BannerItem> bannerItemList;
     private BannerViewPager bannerViewPager;
     private ViewPager viewPager;
     private PointGroup pointGroup;
 
-    private Handler handler;
+    private int imageMode;
+    private final int LOCAL_IMAGE = 0; //加载本地图片
+    private final int INTERNET_IMAGE = 1; //加载网络图片
+
+    protected Handler handler;
 
     public Handler getHandler() {
         return handler;
     }
 
-    public BannerPagerAdapter(Context context, BannerViewPager pager, List<ImageView> views, List<BannerItem> items) {
-        mInflater = LayoutInflater.from(context);
-        this.viewList = views;
-        this.bannerItemList = items;
+    /**
+     * 加载本地图片的构造方法
+     *
+     * @param context
+     * @param pager
+     * @param list
+     * @param imageViewList
+     */
+    public BannerPagerAdapter(Context context, BannerViewPager pager, List<BannerItem> list, List<ImageView> imageViewList) {
+        init(context, pager);
+        imageMode = LOCAL_IMAGE;
+        if (list != null) {
+            bannerItemList = list;
+        }
+        viewList = imageViewList;
+        this.pointGroup = new PointGroup(context, viewList.size());
+        this.bannerViewPager.setPointGroup(pointGroup);
+
+    }
+
+    /**
+     * 加载网络图片的构造方法
+     *
+     * @param context
+     * @param pager
+     * @param list
+     */
+    public BannerPagerAdapter(Context context, BannerViewPager pager, List<BannerItem> list) {
+        imageMode = INTERNET_IMAGE;
+        init(context, pager);
+        viewList = new ArrayList<>();
+        if (list != null) {
+            bannerItemList = list;
+            for (int i = 0; i < list.size(); i++) {
+                ImageView imageView = new ImageView(context);
+                viewList.add(imageView);
+            }
+        }
+        this.pointGroup = new PointGroup(context, viewList.size());
+        this.bannerViewPager.setPointGroup(pointGroup);
+
+    }
+
+    private void init(Context context, BannerViewPager pager) {
         this.bannerViewPager = pager;
         this.viewPager = bannerViewPager.getViewPager();
-
-        this.pointGroup = new PointGroup(context, bannerItemList.size());
-        this.bannerViewPager.setPointGroup(pointGroup);
         this.bannerViewPager.setOnBannerPageChangeListener();
-
+        mInflater = LayoutInflater.from(context);
         handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
-                if (viewPager.getCurrentItem() == bannerItemList.size() - 1) {
+                if (viewPager.getCurrentItem() == viewList.size() - 1) {
                     viewPager.setCurrentItem(0);
                 } else {
                     viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
@@ -58,7 +100,6 @@ public class BannerPagerAdapter extends PagerAdapter {
                 handler.sendEmptyMessageDelayed(0, bannerViewPager.getInterval());
             }
         };
-
     }
 
     public void setOnBannerViewClickListener(OnBannerViewClickListener listener) {
@@ -93,6 +134,11 @@ public class BannerPagerAdapter extends PagerAdapter {
         picLayout.addView(imageView);
 
         BannerItem item = bannerItemList.get(position);
+
+        if (imageMode == INTERNET_IMAGE) {
+            //TODO 加载网络图片的方法
+//            ImageLoaderUtils.display(item.getPicUrl(), imageView, R.mipmap.ic_launcher);
+        }
         if (!TextUtils.isEmpty(item.getIntro())) {
             TextView textView = (TextView) view.findViewById(R.id.tv_intro);
             textView.setText(item.getIntro());
