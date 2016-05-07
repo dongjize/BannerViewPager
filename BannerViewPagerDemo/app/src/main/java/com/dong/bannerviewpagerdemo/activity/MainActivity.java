@@ -1,4 +1,4 @@
-package com.dong.bannerviewpagerdemo;
+package com.dong.bannerviewpagerdemo.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.dong.bannerviewpagerdemo.R;
 import com.dong.bannerviewpagerdemo.banner.BannerItem;
 import com.dong.bannerviewpagerdemo.banner.BannerPagerAdapter;
 import com.dong.bannerviewpagerdemo.banner.BannerViewPager;

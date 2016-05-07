@@ -17,7 +17,7 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 
 /**
- * Description:
+ * Description: 可缩放平移的图片控件
  * <p>
  * Author: dong
  * Date: 16/5/5

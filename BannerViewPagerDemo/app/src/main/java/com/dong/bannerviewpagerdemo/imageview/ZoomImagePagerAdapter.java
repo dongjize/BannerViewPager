@@ -10,19 +10,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Description:
+ * Description: 可加载网络图片和本地图片的Adapter
  * <p/>
  * Author: dong
  * Date: 16/5/7
  */
 public class ZoomImagePagerAdapter extends PagerAdapter {
     private List<ZoomImageView> imageViewList;
-    private Context context;
     private List<String> urlList;
     private int[] imagePaths;
+
     private int imageSource;
-    private final int FROM_INTERNET = 0;
-    private final int FROM_LOCAL = 1;
+    private final int FROM_INTERNET = 0; //加载网络图片
+    private final int FROM_LOCAL = 1; //加载本地图片
 
     /**
      * 网络请求构造函数
@@ -32,7 +32,6 @@ public class ZoomImagePagerAdapter extends PagerAdapter {
      */
     public ZoomImagePagerAdapter(Context context, List<String> urlList) {
         imageSource = FROM_INTERNET;
-        this.context = context;
         this.urlList = urlList;
         imageViewList = new ArrayList<>();
         for (int i = 0; i < urlList.size(); i++) {
@@ -48,7 +47,6 @@ public class ZoomImagePagerAdapter extends PagerAdapter {
      */
     public ZoomImagePagerAdapter(Context context, int[] imagePaths) {
         imageSource = FROM_LOCAL;
-        this.context = context;
         this.imagePaths = imagePaths;
         imageViewList = new ArrayList<>();
         for (int i = 0; i < imagePaths.length; i++) {

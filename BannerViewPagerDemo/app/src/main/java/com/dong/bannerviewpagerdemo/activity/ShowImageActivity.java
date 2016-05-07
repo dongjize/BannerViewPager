@@ -1,9 +1,10 @@
-package com.dong.bannerviewpagerdemo;
+package com.dong.bannerviewpagerdemo.activity;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
+import com.dong.bannerviewpagerdemo.R;
 import com.dong.bannerviewpagerdemo.imageview.ZoomImagePagerAdapter;
 
 /**

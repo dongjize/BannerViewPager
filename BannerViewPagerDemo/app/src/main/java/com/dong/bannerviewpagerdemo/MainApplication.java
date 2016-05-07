@@ -3,6 +3,7 @@ package com.dong.bannerviewpagerdemo;
 import android.app.Application;
 import android.content.Context;
 
+import com.dong.bannerviewpagerdemo.util.ImageLoaderUtils;
 import com.nostra13.universalimageloader.cache.disc.impl.LimitedAgeDiskCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
