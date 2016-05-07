@@ -1,10 +1,14 @@
 package com.dong.bannerviewpagerdemo;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
+
+import com.dong.bannerviewpagerdemo.banner.BannerItem;
+import com.dong.bannerviewpagerdemo.banner.BannerPagerAdapter;
+import com.dong.bannerviewpagerdemo.banner.BannerViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +49,10 @@ public class MainActivity extends AppCompatActivity {
         mAdapter.setOnBannerViewClickListener(new BannerPagerAdapter.OnBannerViewClickListener() {
             @Override
             public void onBannerClick(View itemView, int position) {
-                Toast.makeText(MainActivity.this, bannerItems.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, bannerItems.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, ShowImageActivity.class);
+                intent.putExtra("index", position);
+                startActivity(intent);
             }
         });
         bannerViewPager.setAdapter(mAdapter);

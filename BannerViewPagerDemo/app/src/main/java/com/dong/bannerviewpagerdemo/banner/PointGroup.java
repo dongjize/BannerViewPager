@@ -1,4 +1,4 @@
-package com.dong.bannerviewpagerdemo;
+package com.dong.bannerviewpagerdemo.banner;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import com.dong.bannerviewpagerdemo.R;
 
 /**
  * Description: 轮播图小圆点

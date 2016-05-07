@@ -1,4 +1,4 @@
-package com.dong.bannerviewpagerdemo;
+package com.dong.bannerviewpagerdemo.banner;
 
 /**
  * Description:

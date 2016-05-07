@@ -1,4 +1,4 @@
-package com.dong.bannerviewpagerdemo;
+package com.dong.bannerviewpagerdemo.banner;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -10,6 +10,8 @@ import android.view.animation.Interpolator;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Scroller;
+
+import com.dong.bannerviewpagerdemo.R;
 
 import java.lang.reflect.Field;
 

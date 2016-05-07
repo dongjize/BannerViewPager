@@ -1,4 +1,4 @@
-package com.dong.bannerviewpagerdemo;
+package com.dong.bannerviewpagerdemo.banner;
 
 import android.content.Context;
 import android.os.Handler;
@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.dong.bannerviewpagerdemo.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -139,9 +141,12 @@ public class BannerPagerAdapter extends PagerAdapter {
             //TODO 加载网络图片的方法
 //            ImageLoaderUtils.display(item.getPicUrl(), imageView, R.mipmap.ic_launcher);
         }
+
+        TextView textView = (TextView) view.findViewById(R.id.tv_intro);
         if (!TextUtils.isEmpty(item.getIntro())) {
-            TextView textView = (TextView) view.findViewById(R.id.tv_intro);
             textView.setText(item.getIntro());
+        } else {
+            textView.setVisibility(View.GONE);
         }
         view.setOnClickListener(new View.OnClickListener() {
             @Override
